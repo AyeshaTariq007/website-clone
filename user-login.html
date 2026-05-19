@@ -121,6 +121,15 @@
         .back-link:hover {
             color: #4f46e5 !important;
         }
+        .error-container {
+            color: #ef4444;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -134,6 +143,10 @@
         <div class="login-card user-card" id="userLoginBlock">
             <h2>Welcome back</h2>
             <p class="card-instruction">Secure access to your committee portal.</p>
+
+            <div class="error-container" id="loginError">
+                <i class="fas fa-exclamation-circle"></i> Invalid account details!
+            </div>
 
             <form id="userLoginForm" autocomplete="off">
                 <div class="input-group">
@@ -165,6 +178,10 @@
         <div class="login-card user-card hidden-flow" id="userSignupBlock">
             <h2>Create account</h2>
             <p class="card-instruction">Join thousands of trusted committee members.</p>
+
+            <div class="error-container" id="signupError">
+                <i class="fas fa-exclamation-circle"></i> This email is already registered!
+            </div>
 
             <form id="userSignupForm" autocomplete="off">
                 <div class="input-group">
@@ -213,6 +230,8 @@
         function switchFlow(mode) {
             const loginBlock = document.getElementById('userLoginBlock');
             const signupBlock = document.getElementById('userSignupBlock');
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('signupError').style.display = 'none';
             
             if(mode === 'signup') {
                 loginBlock.classList.add('hidden-flow');
@@ -229,41 +248,60 @@
             
             const fullName = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            const password = document.getElementById('signupPassword').value;
+            const signupError = document.getElementById('signupError');
             
-            // Purane users get karna ya khali array banana
             let systemUsers = JSON.parse(localStorage.getItem('trustcom_users')) || [];
             
-            // Check agar email pehle se exist na karti ho
+            // Check agar email pehle se exist karti ho
             const exists = systemUsers.some(user => user.email === email);
             if(exists) {
-                alert('This email is already registered!');
+                signupError.style.display = 'flex';
                 return;
             }
 
-            // Naya user structure object
+            signupError.style.display = 'none';
+
+            // Naya user object with password logic
             const newUser = {
                 name: fullName,
                 email: email,
+                password: password, // Saved securely in local state for simulation
                 trust: "0%",
                 status: "Pending"
             };
 
-            // Array ke start mein add karna taake "Recent" show ho
             systemUsers.unshift(newUser);
-            
-            // LocalStorage mein save kar dena
             localStorage.setItem('trustcom_users', JSON.stringify(systemUsers));
 
-            alert('Account created successfully!');
+            alert('Account created successfully! Please log in.');
             document.getElementById('userSignupForm').reset();
             switchFlow('login');
         });
 
-        // LOGIN PROCESS
+        // LOGIN PROCESS (Validates against localStorage entries)
         document.getElementById('userLoginForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
             const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-            alert('User logged in successfully: ' + email);
+            const password = document.getElementById('loginPassword').value;
+            const loginError = document.getElementById('loginError');
+            
+            let systemUsers = JSON.parse(localStorage.getItem('trustcom_users')) || [];
+            
+            // Match email and password inside the stored local database array
+            const matchedUser = systemUsers.find(user => user.email === email && user.password === password);
+            
+            if (matchedUser) {
+                loginError.style.display = 'none';
+                alert('Welcome back, ' + matchedUser.name + '!');
+                
+                // Redirecting to verification stream so users can upload details
+                window.location.href = 'verification.html'; 
+            } else {
+                // If account credentials do not match
+                loginError.style.display = 'flex';
+            }
         });
     </script>
 </body>
