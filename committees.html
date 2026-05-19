@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustCom Admin | Committees</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard-style.css">
+    <style>
+        .committee-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .summary-card p {
+            font-size: 11px;
+            color: #64748b;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .summary-card h2 {
+            font-size: 26px;
+            color: #0f172a;
+            margin: 0;
+            font-weight: 700;
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .tab-btn {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-size: 13px;
+            cursor: pointer;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .tab-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        .search-bar-wrap {
+            position: relative;
+            width: 280px;
+            margin-right: 8px;
+        }
+        .search-bar-wrap i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+        .search-input {
+            width: 100%;
+            padding: 8px 12px 8px 36px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .comm-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        .comm-table th {
+            background: #f8fafc;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .comm-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13.5px;
+            color: #334155;
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .badge-recruiting { background: #fef3c7; color: #d97706; }
+        .badge-active { background: #dcfce7; color: #16a34a; }
+        .badge-completed { background: #f1f5f9; color: #475569; }
+        .action-icon {
+            color: #94a3b8;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+        .action-icon:hover { color: #1e293b; }
+        .progress-bar-bg {
+            background: #e2e8f0;
+            height: 6px;
+            border-radius: 4px;
+            width: 90px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        .progress-fill {
+            background: #2563eb;
+            height: 100%;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h3>TrustCom</h3>
+                        <p>Admin Portal</p>
+                    </div>
+                </div>
+                
+                <div class="admin-profile-card" data-admin-email="maidaamjad32@gmail.com" data-admin-pass="maida0123">
+                    <div class="avatar" style="background-color: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; width: 36px; height: 36px; border-radius: 50%;">MA</div>
+                    <div class="admin-info" style="margin-left: 10px;">
+                        <h4 style="margin: 0; font-size: 14px; color: #f8fafc; font-weight: 600;">Maida Amjad</h4>
+                        <p style="margin: 2px 0 0 0; font-size: 12px; color: #94a3b8;">Super Administrator</p>
+                    </div>
+                </div>
+
+                <nav class="nav-menu">
+                    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i> Overview</a>
+                    <a href="users.html" class="nav-item"><i class="fas fa-users"></i> Users</a>
+                    <a href="committees.html" class="nav-item active"><i class="fas fa-landmark"></i> Committees</a>
+                    <a href="verification.html" class="nav-item"><i class="fas fa-check-circle"></i> Verification</a>
+                    <a href="reports.html" class="nav-item"><i class="fas fa-exclamation-triangle"></i> Reports</a>
+                </nav>
+            </div>
+            
+            <div class="sidebar-bottom">
+                <a href="#" class="nav-item logout-sub" id="superadminLink" onclick="alert('Superadmin Portal coming soon!')"><i class="fas fa-external-link-alt"></i> Superadmin Link</a>
+                <a href="index.html" class="nav-item signout-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-title">
+                    <h2>Committee Management</h2>
+                    <p>View, monitor, and manage all committees</p>
+                </div>
+            </header>
+
+            <section class="committee-summary-grid">
+                <div class="summary-card"><p>Total</p><h2 id="count-all">0</h2></div>
+                <div class="summary-card"><p>Active</p><h2 id="count-active" style="color: #2563eb;">0</h2></div>
+                <div class="summary-card"><p>Recruiting</p><h2 id="count-recruiting" style="color: #d97706;">0</h2></div>
+                <div class="summary-card"><p>Completed</p><h2 id="count-completed">0</h2></div>
+                <div class="summary-card"><p>Total Capital</p><h2 id="total-capital">Rs. 0</h2></div>
+            </section>
+
+            <div style="margin-bottom: 20px;">
+                <div class="filter-tabs">
+                    <div class="search-bar-wrap">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search by name..." class="search-input">
+                    </div>
+                    <button class="tab-btn active" data-filter="all">All</button>
+                    <button class="tab-btn" data-filter="Active">Active</button>
+                    <button class="tab-btn" data-filter="Recruiting">Recruiting</button>
+                    <button class="tab-btn" data-filter="Completed">Completed</button>
+                </div>
+            </div>
+
+            <div class="table-container" style="margin-top: 0; padding: 0; background: white; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
+                <table class="comm-table">
+                    <thead>
+                        <tr>
+                            <th>Committee</th>
+                            <th>Creator</th>
+                            <th>Members</th>
+                            <th>Monthly</th>
+                            <th>Progress</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="committeeTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const SUPABASE_URL = "https://xbooltokddqcuwmrvnto.supabase.co"; 
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhib29sdG9rZGRxY3V3bXJ2bnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMDIyMjcsImV4cCI6MjA5NDc3ODIyN30.OHMTbVCuc6VQ59keZHqL_1KMqN66-jHTviCdALvJSr8"; 
+        
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const defaultCommittees = [
+            { name: "SaveSphere", duration: "10 months", pool: "Rs. 100K pool", creator: "Amna Shakeel", members: "3 / 10", monthly: "Rs. 1K", progress: 30, status: "Recruiting" },
+            { name: "Prosperity Committee", duration: "4 months", pool: "Rs. 32K pool", creator: "Amna Shakeel", members: "3 / 4", monthly: "Rs. 2K", progress: 75, status: "Recruiting" },
+            { name: "CUI Extra", duration: "20 months", pool: "Rs. 400K pool", creator: "Maida Amjad", members: "3 / 20", monthly: "Rs. 1K", progress: 15, status: "Completed" },
+            { name: "review test", duration: "12 months", pool: "Rs. 24K pool", creator: "Unknown", members: "2 / 2", monthly: "Rs. 998", progress: 100, status: "Recruiting" },
+            { name: "Monthly saving", duration: "12 months", pool: "Rs. 24K pool", creator: "Maida Amjad", members: "3 / 2", monthly: "Rs. 1K", progress: 150, status: "Completed" },
+            { name: "Test By Maida", duration: "2 months", pool: "Rs. 8K pool", creator: "Maida Amjad", members: "3 / 2", monthly: "Rs. 2K", progress: 150, status: "Completed" },
+            { name: "Testing", duration: "2 months", pool: "Rs. 12K pool", creator: "Maida Amjad", members: "3 / 3", monthly: "Rs. 2K", progress: 100, status: "Active" },
+            { name: "kdhui", duration: "2 months", pool: "Rs. 4K pool", creator: "Unknown", members: "3 / 2", monthly: "Rs. 1K", progress: 150, status: "Completed" },
+            { name: "Final test", duration: "2 months", pool: "Rs. 4K pool", creator: "Amna Shakeel", members: "3 / 2", monthly: "Rs. 1K", progress: 150, status: "Active" }
+        ];
+
+        let committeesData = [];
+        let activeFilter = 'all';
+
+        async function fetchCommittees() {
+            try {
+                let { data: committees, error } = await supabase.from('committees').select('*');
+                
+                if (error || !committees || committees.length === 0) {
+                    console.log("Database khali hai ya error hai. Default data loading...");
+                    committeesData = defaultCommittees;
+                } else {
+                    committeesData = committees;
+                }
+            } catch (err) {
+                console.error("Fetch error:", err);
+                committeesData = defaultCommittees;
+            }
+            
+            updateCounters();
+            renderTable();
+        }
+
+        function renderTable() {
+            const tableBody = document.getElementById('committeeTableBody');
+            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+            tableBody.innerHTML = '';
+
+            const filteredData = committeesData.filter(item => {
+                const matchesTab = (activeFilter === 'all' || item.status === activeFilter);
+                const matchesSearch = item.name.toLowerCase().includes(searchVal) || item.creator.toLowerCase().includes(searchVal);
+                return matchesTab && matchesSearch;
+            });
+
+            if(filteredData.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#94a3b8;">No matching records found.</td></tr>`;
+                return;
+            }
+
+            filteredData.forEach(item => {
+                let badgeStyle = 'badge-completed';
+                if(item.status === 'Recruiting') badgeStyle = 'badge-recruiting';
+                if(item.status === 'Active') badgeStyle = 'badge-active';
+
+                const lockIcon = (item.status !== 'Completed') ? `<i class="fas fa-lock action-icon"></i>` : '';
+
+                const row = `
+                    <tr>
+                        <td><strong>${item.name}</strong><br><small style="color:#64748b; font-size:11px;">${item.duration} • ${item.pool}</small></td>
+                        <td>${item.creator}</td>
+                        <td>${item.members}</td>
+                        <td style="color:#2563eb; font-weight:600;">${item.monthly}</td>
+                        <td>
+                            <div class="progress-bar-bg"><div class="progress-fill" style="width:${Math.min(item.progress, 100)}%"></div></div>
+                            <span style="font-size:12px; font-weight:600;">${item.progress}%</span>
+                        </td>
+                        <td><span class="badge ${badgeStyle}">${item.status}</span></td>
+                        <td>
+                            <i class="far fa-eye action-icon"></i>
+                            ${lockIcon}
+                            <i class="far fa-trash-alt action-icon"></i>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        function updateCounters() {
+            document.getElementById('count-all').innerText = committeesData.length;
+            document.getElementById('count-active').innerText = committeesData.filter(i => i.status === 'Active').length;
+            document.getElementById('count-recruiting').innerText = committeesData.filter(i => i.status === 'Recruiting').length;
+            document.getElementById('count-completed').innerText = committeesData.filter(i => i.status === 'Completed').length;
+            
+            let totalPool = 608; 
+            document.getElementById('total-capital').innerText = `Rs. ${totalPool}K`;
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                activeFilter = this.getAttribute('data-filter');
+                renderTable();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', renderTable);
+
+        fetchCommittees();
+    </script>
+</body>
+</html>

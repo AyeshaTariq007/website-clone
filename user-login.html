@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustCom | Committee Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        body {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+            color: #1e293b !important;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .main-wrapper {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .top-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .user-card {
+            background: #ffffff !important;
+            border-radius: 24px !important;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+            border: 1px solid #e2e8f0 !important;
+            padding: 40px !important;
+        }
+        .user-card h2 {
+            color: #0f172a !important;
+            font-size: 30px !important;
+            font-weight: 800 !important;
+            text-align: center;
+            margin: 0 0 8px 0;
+        }
+        .user-card p.card-instruction {
+            color: #64748b !important;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .user-card label {
+            color: #475569 !important;
+            font-weight: 600;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .user-card .input-with-icon {
+            position: relative;
+        }
+        .user-card .input-with-icon input, .user-card .input-with-icon select {
+            width: 100%;
+            padding: 12px 16px 12px 45px;
+            background: #f8fafc !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #0f172a !important;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 15px;
+            outline: none;
+            appearance: none;
+        }
+        .user-card .input-with-icon i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b !important;
+            font-size: 16px;
+            z-index: 2;
+        }
+        .user-card .secure-btn {
+            background: #4f46e5 !important;
+            color: white !important;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .user-card .secure-btn:hover {
+            background: #4338ca !important;
+        }
+        .hidden-flow {
+            display: none !important;
+        }
+        .footer-links {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .back-link {
+            color: #64748b !important;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .back-link:hover {
+            color: #4f46e5 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="top-header">
+            <i class="fas fa-shield-alt" style="color: #4f46e5; font-size: 44px; margin-bottom: 8px;"></i>
+            <h1 style="color: #0f172a; font-size: 26px; margin: 0; font-weight: 800;">TrustCom</h1>
+        </div>
+
+        <div class="login-card user-card" id="userLoginBlock">
+            <h2>Welcome back</h2>
+            <p class="card-instruction">Secure access to your committee portal.</p>
+
+            <form id="userLoginForm" autocomplete="off">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="far fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="name@organization.com" autocomplete="new-password" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="new-password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="secure-btn">
+                    Sign In &rarr;
+                </button>
+            </form>
+
+            <p style="margin-top: 24px; font-size: 14px; color: #64748b; text-align: center; margin-bottom: 0;">
+                Don't have an account? <a href="#" onclick="switchFlow('signup')" style="color: #4f46e5; text-decoration: none; font-weight: 600;">Create an Account</a>
+            </p>
+        </div>
+
+        <div class="login-card user-card hidden-flow" id="userSignupBlock">
+            <h2>Create account</h2>
+            <p class="card-instruction">Join thousands of trusted committee members.</p>
+
+            <form id="userSignupForm" autocomplete="off">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="far fa-user"></i>
+                        <input type="text" id="signupName" placeholder="John Doe" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="far fa-envelope"></i>
+                        <input type="email" id="signupEmail" placeholder="name@organization.com" autocomplete="new-password" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signupPassword" placeholder="Min 8 characters" minlength="8" autocomplete="new-password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="secure-btn">
+                    Create Account &rarr;
+                </button>
+            </form>
+
+            <p style="margin-top: 24px; font-size: 14px; color: #64748b; text-align: center; margin-bottom: 0;">
+                Already have an account? <a href="#" onclick="switchFlow('login')" style="color: #4f46e5; text-decoration: none; font-weight: 600;">Sign In</a>
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Admin Login
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function switchFlow(mode) {
+            const loginBlock = document.getElementById('userLoginBlock');
+            const signupBlock = document.getElementById('userSignupBlock');
+            
+            if(mode === 'signup') {
+                loginBlock.classList.add('hidden-flow');
+                signupBlock.classList.remove('hidden-flow');
+            } else {
+                signupBlock.classList.add('hidden-flow');
+                loginBlock.classList.remove('hidden-flow');
+            }
+        }
+
+        // SIGN UP PROCESS (Saves user to localStorage)
+        document.getElementById('userSignupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            
+            // Purane users get karna ya khali array banana
+            let systemUsers = JSON.parse(localStorage.getItem('trustcom_users')) || [];
+            
+            // Check agar email pehle se exist na karti ho
+            const exists = systemUsers.some(user => user.email === email);
+            if(exists) {
+                alert('This email is already registered!');
+                return;
+            }
+
+            // Naya user structure object
+            const newUser = {
+                name: fullName,
+                email: email,
+                trust: "0%",
+                status: "Pending"
+            };
+
+            // Array ke start mein add karna taake "Recent" show ho
+            systemUsers.unshift(newUser);
+            
+            // LocalStorage mein save kar dena
+            localStorage.setItem('trustcom_users', JSON.stringify(systemUsers));
+
+            alert('Account created successfully!');
+            document.getElementById('userSignupForm').reset();
+            switchFlow('login');
+        });
+
+        // LOGIN PROCESS
+        document.getElementById('userLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            alert('User logged in successfully: ' + email);
+        });
+    </script>
+</body>
+</html>

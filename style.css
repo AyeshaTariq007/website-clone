@@ -1,0 +1,225 @@
+/* -- Reset aur Basic Styles -- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    /* Exact original dark theme colors */
+    background: radial-gradient(circle at center, #15294a 0%, #0b1528 100%);
+    background-color: #0b1528; 
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.main-wrapper {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* -- Top Header Style -- */
+.top-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.shield-icon {
+    font-size: 52px;
+    color: #1d4ed8; /* Premium blue */
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.top-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.top-header .subtitle {
+    font-size: 14px;
+    color: #94a3b8; /* Exact slate grey description text */
+}
+
+/* -- Login Card Style -- */
+.login-card {
+    background-color: #111e35; /* Dark bluish card tint */
+    width: 100%;
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid #1e293b;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.login-card h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.card-instruction {
+    font-size: 13.5px;
+    color: #64748b;
+    margin-bottom: 28px;
+}
+
+/* -- Input Styles -- */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon i:first-child {
+    position: absolute;
+    left: 14px;
+    color: #475569;
+    font-size: 15px;
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 11px 14px 11px 42px;
+    background-color: #0b1528; /* Inputs match the main body */
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.input-with-icon input::placeholder {
+    color: #334155;
+}
+
+.input-with-icon input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.input-with-icon .eye-icon {
+    position: absolute;
+    right: 14px;
+    color: #475569;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* -- Restricted Access Box (Original blue layout) -- */
+.restricted-box {
+    background-color: #0b1528;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.restricted-icon {
+    color: #2563eb; /* Original contains a blue alert icon instead of red */
+    font-size: 16px;
+    margin-right: 12px;
+    margin-top: 3px;
+}
+
+.restricted-text h3 {
+    font-size: 13px;
+    font-weight: 500;
+    color: #94a3b8;
+    margin-bottom: 2px;
+}
+
+.restricted-text p {
+    font-size: 11.5px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* -- Secure Button -- */
+.secure-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #1d4ed8; /* Smooth original button color */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.secure-btn:hover {
+    background-color: #1e40af;
+}
+
+.secure-btn i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+/* -- Footer Links Style -- */
+.footer-links {
+    margin-top: 28px;
+    text-align: center;
+}
+
+.back-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 20px;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #94a3b8;
+}
+
+.back-link i {
+    margin-right: 6px;
+    font-size: 11px;
+}
+
+.session-info {
+    font-size: 11px;
+    color: #475569;
+}
+
+.session-info i {
+    margin-right: 4px;
+    font-size: 10px;
+}

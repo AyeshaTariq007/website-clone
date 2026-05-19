@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustCom Admin | Reports & Complaints</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard-style.css">
+    <style>
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .metric-card {
+            background: white;
+            padding: 20px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .filter-bar button {
+            background: white;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .filter-bar button.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        .reports-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        .reports-table th {
+            background: #f8fafc;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .reports-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13.5px;
+            color: #334155;
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .severity-High { background: #fee2e2; color: #ef4444; }
+        .severity-Medium { background: #ffedd5; color: #f97316; }
+        .severity-Low { background: #f0fdf4; color: #16a34a; }
+
+        .status-Open { background: #fef3c7; color: #d97706; }
+        .status-Resolved { background: #dcfce7; color: #16a34a; }
+        .status-Ignored { background: #f1f5f9; color: #64748b; }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .action-btn:hover { color: #1e293b; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h3>TrustCom</h3>
+                        <p>Admin Portal</p>
+                    </div>
+                </div>
+
+                <div class="admin-profile-card" data-admin-email="maidaamjad32@gmail.com" data-admin-pass="maida0123">
+                    <div class="avatar" style="background-color: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; width: 36px; height: 36px; border-radius: 50%;">MA</div>
+                    <div class="admin-info" style="margin-left: 10px;">
+                        <h4 style="margin: 0; font-size: 14px; color: #f8fafc; font-weight: 600;">Maida Amjad</h4>
+                        <p style="margin: 2px 0 0 0; font-size: 12px; color: #94a3b8;">Super Administrator</p>
+                    </div>
+                </div>
+
+                <nav class="nav-menu">
+                    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i> Overview</a>
+                    <a href="users.html" class="nav-item"><i class="fas fa-users"></i> Users</a>
+                    <a href="committees.html" class="nav-item"><i class="fas fa-landmark"></i> Committees</a>
+                    <a href="verification.html" class="nav-item"><i class="fas fa-check-circle"></i> Verification</a>
+                    <a href="reports.html" class="nav-item active"><i class="fas fa-exclamation-triangle"></i> Reports</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom">
+                <a href="#" class="nav-item logout-sub" id="superadminLink" onclick="alert('Superadmin Portal coming soon!')"><i class="fas fa-external-link-alt"></i> Superadmin Link</a>
+                <a href="index.html" class="nav-item signout-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-title">
+                    <h2>Reports & Complaints</h2>
+                    <p>Review and action user-submitted reports</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="filter-btn" style="background: #ffffff; color: #334155; padding: 8px 16px; border-radius: 8px; border: 1px solid #e2e8f0;"><i class="far fa-comments"></i> Complaints</button>
+                    <button class="new-committee-btn" style="background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 8px;"><i class="fas fa-download"></i> Download Reports</button>
+                </div>
+            </header>
+
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                        <span style="background: #fee2e2; color: #ef4444; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;"><i class="fas fa-exclamation-circle"></i></span>
+                        <p class="card-label" style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b;">OPEN REPORTS</p>
+                    </div>
+                    <h3 id="count-open" class="card-value" style="margin: 0; font-size: 26px; font-weight: 700;">0</h3>
+                </div>
+                <div class="metric-card">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                        <span style="background: #dcfce7; color: #16a34a; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;"><i class="fas fa-check-circle"></i></span>
+                        <p class="card-label" style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b;">RESOLVED</p>
+                    </div>
+                    <h3 id="count-resolved" class="card-value" style="margin: 0; font-size: 26px; font-weight: 700;">0</h3>
+                </div>
+                <div class="metric-card">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                        <span style="background: #fef9c3; color: #ca8a04; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;"><i class="fas fa-exclamation-triangle"></i></span>
+                        <p class="card-label" style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b;">HIGH SEVERITY</p>
+                    </div>
+                    <h3 id="count-high" class="card-value" style="margin: 0; font-size: 26px; font-weight: 700;">0</h3>
+                </div>
+            </section>
+
+            <div class="filter-bar" style="margin-top: 24px; font-size: 14px; color: #64748b; background: white; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>Status:</span>
+                        <div class="filter-buttons" id="statusFilters">
+                            <button class="active" data-status="all" style="padding: 4px 12px; font-size: 13px;">All</button>
+                            <button data-status="Open" style="padding: 4px 12px; font-size: 13px;">Open</button>
+                            <button data-status="Resolved" style="padding: 4px 12px; font-size: 13px;">Resolved</button>
+                            <button data-status="Ignored" style="padding: 4px 12px; font-size: 13px;">Ignored</button>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>Severity:</span>
+                        <div class="filter-buttons" id="severityFilters">
+                            <button class="active" data-severity="all" style="padding: 4px 12px; font-size: 13px;">All</button>
+                            <button data-severity="High" style="padding: 4px 12px; font-size: 13px;">High</button>
+                            <button data-severity="Medium" style="padding: 4px 12px; font-size: 13px;">Medium</button>
+                            <button data-severity="Low" style="padding: 4px 12px; font-size: 13px;">Low</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contentWrapper" style="margin-top: 20px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: white;">
+                </div>
+
+            <div id="emptyStateTemplate" style="display: none;">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; text-align: center; border: 1px dashed #cbd5e1; background: transparent; margin: 10px; border-radius: 8px;">
+                    <div style="background: #f1f5f9; width: 60px; height: 60px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                        <i class="clipboard-check far fa-clipboard" style="font-size: 24px; color: #94a3b8;"></i>
+                    </div>
+                    <h3 style="color: #334155; font-size: 16px; margin-bottom: 4px;">No reports found</h3>
+                    <p style="color: #64748b; font-size: 14px;">No reports match the selected filters.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const SUPABASE_URL = "https://xbooltokddqcuwmrvnto.supabase.co"; 
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhib29sdG9rZGRxY3V3bXJ2bnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMDIyMjcsImV4cCI6MjA5NDc3ODIyN30.OHMTbVCuc6VQ59keZHqL_1KMqN66-jHTviCdALvJSr8"; 
+        
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const defaultReports = [
+            { id: "REP-001", user: "Zainab Bibi", issue: "Payment transaction delay in CUI Extra committee", severity: "Medium", date: "2026-05-18", status: "Open" },
+            { id: "REP-002", user: "Ali Ahmed", issue: "Fake creator identity suspected for test group", severity: "High", date: "2026-05-17", status: "Open" },
+            { id: "REP-003", user: "Kiran Khan", issue: "App interface lagging on verification screen", severity: "Low", date: "2026-05-15", status: "Resolved" }
+        ];
+
+        let reportsData = [];
+        let activeStatusFilter = 'all';
+        let activeSeverityFilter = 'all';
+
+        async function fetchReports() {
+            try {
+                let { data: reports, error } = await supabase.from('reports').select('*');
+                
+                if (error || !reports || reports.length === 0) {
+                    console.log("Database empty or error. Loading default local reports...");
+                    reportsData = defaultReports;
+                } else {
+                    reportsData = reports;
+                }
+            } catch (err) {
+                console.error("Fetch error:", err);
+                reportsData = defaultReports;
+            }
+            updateMetrics();
+            renderContent();
+        }
+
+        function renderContent() {
+            const wrapper = document.getElementById('contentWrapper');
+            
+            const filtered = reportsData.filter(item => {
+                const matchStatus = (activeStatusFilter === 'all' || item.status === activeStatusFilter);
+                const matchSeverity = (activeSeverityFilter === 'all' || item.severity === activeSeverityFilter);
+                return matchStatus && matchSeverity;
+            });
+
+            if (filtered.length === 0) {
+                wrapper.style.background = "transparent";
+                wrapper.style.border = "none";
+                wrapper.innerHTML = document.getElementById('emptyStateTemplate').innerHTML;
+                return;
+            }
+
+            wrapper.style.background = "white";
+            wrapper.style.border = "1px solid #e2e8f0";
+            
+            let tableHtml = `
+                <table class="reports-table">
+                    <thead>
+                        <tr>
+                            <th>Report ID</th>
+                            <th>Reporter</th>
+                            <th>Issue Description</th>
+                            <th>Severity</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            filtered.forEach(item => {
+                tableHtml += `
+                    <tr>
+                        <td style="font-weight: 600; color: #0f172a;">${item.id}</td>
+                        <td>${item.user}</td>
+                        <td style="max-width: 300px; color: #475569;">${item.issue}</td>
+                        <td><span class="badge severity-${item.severity}">${item.severity}</span></td>
+                        <td>${item.date}</td>
+                        <td><span class="badge status-${item.status}">${item.status}</span></td>
+                        <td>
+                            <button class="action-btn" title="View details"><i class="far fa-eye"></i></button>
+                            <button class="action-btn" title="Mark Resolved" style="color: #16a34a;"><i class="fas fa-check"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += `</tbody></table>`;
+            wrapper.innerHTML = tableHtml;
+        }
+
+        function updateMetrics() {
+            document.getElementById('count-open').innerText = reportsData.filter(r => r.status === 'Open').length;
+            document.getElementById('count-resolved').innerText = reportsData.filter(r => r.status === 'Resolved').length;
+            document.getElementById('count-high').innerText = reportsData.filter(r => r.severity === 'High').length;
+        }
+
+        document.querySelectorAll('#statusFilters button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#statusFilters button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                activeStatusFilter = this.getAttribute('data-status');
+                renderContent();
+            });
+        });
+
+        document.querySelectorAll('#severityFilters button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#severityFilters button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                activeSeverityFilter = this.getAttribute('data-severity');
+                renderContent();
+            });
+        });
+
+        fetchReports();
+    </script>
+</body>
+</html>

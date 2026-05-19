@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustCom Admin | Sign In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #111827;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #1f2937;
+            width: 100%;
+            max-width: 420px;
+            box-sizing: border-box;
+        }
+        .logo-area {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .logo-area .shield-icon {
+            font-size: 40px;
+            color: #2563eb;
+            background: rgba(37, 99, 235, 0.1);
+            padding: 16px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+        .logo-area h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .logo-area p {
+            margin: 6px 0 0 0;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .form-desc {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4b5563;
+            font-size: 14px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            background-color: #070a12;
+            border: 1px solid #1f2937;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+        .restricted-box {
+            background-color: rgba(37, 99, 235, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .restricted-box i {
+            color: #2563eb;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+        .restricted-box div h5 {
+            margin: 0;
+            font-size: 13px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        .restricted-box div p {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .login-btn:hover {
+            background-color: #1d4ed8;
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+        }
+        .footer-links {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 13px;
+        }
+        .footer-links a {
+            color: #64748b;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-links a:hover {
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="logo-area">
+            <div class="shield-icon"><i class="fas fa-shield-alt"></i></div>
+            <h2>TrustCom Admin</h2>
+            <p>Secure administrative access portal</p>
+        </div>
+
+        <div class="form-title">Sign In</div>
+        <div class="form-desc">Enter your administrator credentials to continue.</div>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i> Invalid email or password!
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Administrator Email</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="email" id="adminEmail" class="form-control" placeholder="admin@trustcom.io" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="adminPassword" class="form-control" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <div class="restricted-box">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <h5>Restricted Access</h5>
+                    <p>This portal is for authorised administrators only. All sessions are logged and monitored.</p>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">
+                <i class="fas fa-lock"></i> Initiate Secure Session
+            </button>
+        </form>
+
+        <div class="footer-links">
+            <a href="#" id="backToUserPortal"><i class="fas fa-arrow-left"></i> Back to User Portal</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('adminEmail').value.trim();
+            const passwordInput = document.getElementById('adminPassword').value;
+            const errorDiv = document.getElementById('errorMessage');
+
+            // Sahi credentials
+            const correctEmail = "hadiaiqbal1807@gmail.com";
+            const correctPassword = "hadia0123";
+
+            if (emailInput === correctEmail && passwordInput === correctPassword) {
+                errorDiv.style.display = 'none';
+                window.location.href = "dashboard.html";
+            } else {
+                errorDiv.style.display = 'flex';
+            }
+        });
+
+        // User portal crash notification handle karne ke liye
+        document.getElementById('backToUserPortal').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('User Portal page configuration coming soon.');
+        });
+    </script>
+</body>
+</html>

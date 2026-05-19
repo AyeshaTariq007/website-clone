@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustCom Admin | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard-style.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h3>TrustCom</h3>
+                        <p>Admin Portal</p>
+                    </div>
+                </div>
+
+                <div class="admin-profile-card" data-admin-email="maidaamjad32@gmail.com" data-admin-pass="maida0123">
+                    <div class="avatar" style="background-color: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; width: 36px; height: 36px; border-radius: 50%;">MA</div>
+                    <div class="admin-info" style="margin-left: 10px;">
+                        <h4 style="margin: 0; font-size: 14px; color: #f8fafc; font-weight: 600;">Maida Amjad</h4>
+                        <p style="margin: 2px 0 0 0; font-size: 12px; color: #94a3b8;">Super Administrator</p>
+                    </div>
+                </div>
+
+                <nav class="nav-menu">
+                    <a href="dashboard.html" class="nav-item active">
+                        <i class="fas fa-th-large"></i> Overview
+                    </a>
+                    <a href="users.html" class="nav-item">
+                        <i class="fas fa-users"></i> Users
+                    </a>
+                    <a href="committees.html" class="nav-item">
+                        <i class="fas fa-landmark"></i> Committees
+                    </a>
+                    <a href="verification.html" class="nav-item">
+                        <i class="fas fa-check-circle"></i> Verification
+                    </a>
+                    <a href="reports.html" class="nav-item">
+                        <i class="fas fa-exclamation-triangle"></i> Reports
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom">
+                <a href="#" class="nav-item logout-sub" id="superadminLink" onclick="alert('Superadmin Portal coming soon!')">
+                    <i class="fas fa-external-link-alt"></i> Superadmin Link
+                </a>
+                <a href="index.html" class="nav-item signout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="content-header">
+                <div class="header-title">
+                    <h2>System Overview</h2>
+                    <p>Real-time platform metrics</p>
+                </div>
+                <a href="committees.html" class="new-committee-btn" style="background: #2563eb; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 500; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; text-decoration: none; width: fit-content;">
+                    <i class="fas fa-plus"></i> New Committee
+                </a>
+            </header>
+
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <span style="background: #eff6ff; color: #2563eb; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-users"></i></span>
+                        <span style="color: #16a34a; background: #dcfce7; font-size: 12px; padding: 2px 8px; border-radius: 9999px; font-weight: 500;">+12%</span>
+                    </div>
+                    <p class="card-label">TOTAL USERS</p>
+                    <h3 class="card-value" id="totalUsersCount">11</h3>
+                </div>
+                <div class="metric-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <span style="background: #ecfdf5; color: #10b981; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-landmark"></i></span>
+                        <span style="color: #16a34a; background: #dcfce7; font-size: 12px; padding: 2px 8px; border-radius: 9999px; font-weight: 500;">Live</span>
+                    </div>
+                    <p class="card-label">ACTIVE COMMITTEES</p>
+                    <h3 class="card-value" id="activeCommitteesCount">3</h3>
+                </div>
+                <div class="metric-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <span style="background: #fffbeb; color: #f59e0b; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-wallet"></i></span>
+                        <span style="color: #b45309; background: #fef3c7; font-size: 12px; padding: 2px 8px; border-radius: 9999px; font-weight: 500;">Managed</span>
+                    </div>
+                    <p class="card-label">TOTAL CAPITAL</p>
+                    <h3 class="card-value" id="totalCapitalValue">Rs. 608K</h3>
+                </div>
+                <div class="metric-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <span style="background: #fdf2f8; color: #ec4899; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-exclamation-triangle"></i></span>
+                        <span style="color: #9d174d; background: #fce7f3; font-size: 12px; padding: 2px 8px; border-radius: 9999px; font-weight: 500;">0 open</span>
+                    </div>
+                    <p class="card-label">REPORTS</p>
+                    <h3 class="card-value">0</h3>
+                </div>
+            </section>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 24px;">
+                <div class="table-container" style="margin-top: 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3 style="font-size: 16px; color: #1e293b; font-weight: 600;">Recent Users</h3>
+                        <a href="users.html" style="color: #2563eb; font-size: 13px; text-decoration: none; font-weight: 500;">View all &rarr;</a>
+                    </div>
+                    
+                    <div id="recentUsersContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                        <p style="color: #64748b; font-size: 13px;">Loading from database...</p>
+                    </div>
+                </div>
+
+                <div class="table-container" style="margin-top: 0; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h3 style="font-size: 16px; color: #1e293b; font-weight: 600;">Open Reports</h3>
+                            <a href="reports.html" style="color: #2563eb; font-size: 13px; text-decoration: none; font-weight: 500;">View all &rarr;</a>
+                        </div>
+                        <div style="text-align: center; padding: 40px 0; color: #94a3b8;">
+                            <i class="far fa-check-circle" style="font-size: 32px; margin-bottom: 10px; color: #cbd5e1;"></i>
+                            <p style="margin: 0; font-size: 13px; color: #64748b;">No open reports</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://xbooltokddqcuwmrvnto.supabase.co"; 
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhib29sdG9rZGRxY3V3bXJ2bnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMDIyMjcsImV4cCI6MjA5NDc3ODIyN30.OHMTbVCuc6VQ59keZHqL_1KMqN66-jHTviCdALvJSr8"; 
+        
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const container = document.getElementById('recentUsersContainer');
+            if (!container) return;
+
+            const defaultUsers = [
+                { name: "hadia iqbal", email: "hadiaiqbal1807@gmail.com", status: "Pending" },
+                { name: "Hifza ikraam–053", email: "hifzaikraam71@gmail.com", status: "Pending" },
+                { name: "Areeba Sajjad", email: "developer.genius.cs@gmail.com", status: "Pending" },
+                { name: "Areeba", email: "areeba@gmail.com", status: "Pending" },
+                { name: "Tahreem bibi", email: "tahreemasif28@gmail.com", status: "Pending" }
+            ];
+
+            function displayUsers(usersList) {
+                container.innerHTML = '';
+                usersList.forEach(user => {
+                    const parts = user.name.trim().split(' ');
+                    let initials = parts[0] ? parts[0][0].toUpperCase() : 'U';
+                    if(parts.length > 1 && parts[1]) initials += parts[1][0].toUpperCase();
+
+                    let badgeColor = "background-color: #fef3c7; color: #d97706;";
+                    if (user.status === 'Active') badgeColor = "background-color: #dcfce7; color: #16a34a;";
+
+                    const itemHtml = `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid #f1f5f9; border-radius: 8px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="background: #e2e8f0; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; color: #475569;">
+                                    ${initials}
+                                </div>
+                                <div>
+                                    <h4 style="margin: 0; font-size: 14px; color: #334155;">${user.name}</h4>
+                                    <span style="font-size: 12px; color: #64748b;">${user.email}</span>
+                                </div>
+                            </div>
+                            <span style="font-size: 11px; padding: 3px 8px; ${badgeColor} border-radius: 12px; font-weight: 500;">${user.status}</span>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', itemHtml);
+                });
+            }
+
+            try {
+                let { data: users, error } = await supabase.from('users').select('*').limit(5);
+                
+                if (error || !users || users.length === 0) {
+                    console.log("Supabase empty or table missing, using local default list.");
+                    displayUsers(defaultUsers);
+                } else {
+                    displayUsers(users);
+                    let { count } = await supabase.from('users').select('*', { count: 'exact', head: true });
+                    if(count) document.getElementById('totalUsersCount').innerText = count;
+                }
+            } catch (err) {
+                console.error("Database connection error:", err);
+                displayUsers(defaultUsers);
+            }
+        });
+    </script>
+</body>
+</html>
